@@ -2,7 +2,7 @@ name: Fetch API Prices
 
 on:
   schedule:
-    - cron: "0 2 * * *"   # daily at 02:00 UTC
+    - cron: "0 2 * * 1"   # weekly on Monday at 02:00 UTC
   workflow_dispatch:       # allow manual trigger
 
 permissions:

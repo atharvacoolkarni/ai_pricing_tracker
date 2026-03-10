@@ -6,7 +6,7 @@ import { formatPrice, calcMonthlyCost } from "@/lib/utils";
 import { Calculator, ChevronDown, ChevronUp, ArrowUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type SortKey = "name" | "provider" | "input_price_per_1m" | "output_price_per_1m" | "blended_price_per_1m" | "context_window_k" | "speed_tok_per_s" | "intelligence_score";
+type SortKey = "name" | "provider" | "input_price_per_1m" | "output_price_per_1m" | "blended_price_per_1m" | "speed_tok_per_s" | "intelligence_score";
 type SortDir = "asc" | "desc";
 
 interface Props {
@@ -249,9 +249,6 @@ export default function ApiPricingTable({ models, dataSource, fetchedAt }: Props
                   Blended / 1M <SortIcon k="blended_price_per_1m" />
                 </th>
               )}
-              <th className="px-4 py-3 text-right cursor-pointer" onClick={() => toggleSort("context_window_k")}>
-                Context <SortIcon k="context_window_k" />
-              </th>
               {hasSpeed && (
                 <th className="px-4 py-3 text-right cursor-pointer whitespace-nowrap" onClick={() => toggleSort("speed_tok_per_s")}>
                   Speed (tok/s) <SortIcon k="speed_tok_per_s" />
@@ -262,7 +259,6 @@ export default function ApiPricingTable({ models, dataSource, fetchedAt }: Props
                   Intelligence <SortIcon k="intelligence_score" />
                 </th>
               )}
-              <th className="px-4 py-3 text-center">Type</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
@@ -287,9 +283,6 @@ export default function ApiPricingTable({ models, dataSource, fetchedAt }: Props
                       : <span className="text-gray-300">—</span>}
                   </td>
                 )}
-                <td className="px-4 py-3 text-right text-gray-600">
-                  {m.context_window_k ? `${m.context_window_k}k` : "—"}
-                </td>
                 {hasSpeed && (
                   <td className="px-4 py-3 text-right">
                     {m.speed_tok_per_s != null ? (
@@ -320,19 +313,11 @@ export default function ApiPricingTable({ models, dataSource, fetchedAt }: Props
                     ) : <span className="text-gray-300">—</span>}
                   </td>
                 )}
-                <td className="px-4 py-3 text-center">
-                  <span className={cn(
-                    "inline-block rounded-full px-2 py-0.5 text-xs font-medium",
-                    m.modality === "multimodal" ? "bg-purple-100 text-purple-700" : "bg-gray-100 text-gray-600"
-                  )}>
-                    {m.modality}
-                  </span>
-                </td>
               </tr>
             ))}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={hasBlended || hasSpeed || hasIntelligence ? 8 : 6} className="px-4 py-8 text-center text-gray-400">No models match your filters.</td>
+                <td colSpan={hasBlended || hasSpeed || hasIntelligence ? 6 : 4} className="px-4 py-8 text-center text-gray-400">No models match your filters.</td>
               </tr>
             )}
           </tbody>

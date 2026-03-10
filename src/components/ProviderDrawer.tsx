@@ -33,11 +33,19 @@ export default function ProviderDrawer({ provider, onClose }: Props) {
     return () => document.removeEventListener("keydown", handleKey);
   }, [provider, onClose]);
 
-  // Prevent body scroll when open
+  // Prevent body + html scroll when open
   useEffect(() => {
-    if (provider) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
-    return () => { document.body.style.overflow = ""; };
+    if (provider) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
   }, [provider]);
 
   return (
@@ -58,7 +66,7 @@ export default function ProviderDrawer({ provider, onClose }: Props) {
         aria-modal
         aria-label={provider ? `${provider.provider} plan details` : undefined}
         className={cn(
-          "fixed inset-y-0 right-0 z-50 flex flex-col w-full max-w-2xl bg-white shadow-2xl",
+          "fixed top-0 bottom-0 right-0 z-50 flex flex-col w-full max-w-2xl h-full bg-white shadow-2xl",
           "transition-transform duration-300 ease-in-out",
           provider ? "translate-x-0" : "translate-x-full"
         )}
