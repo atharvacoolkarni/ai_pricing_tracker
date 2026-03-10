@@ -1,0 +1,70 @@
+name: Fetch API Prices
+
+on:
+  schedule:
+    - cron: "0 2 * * *"   # daily at 02:00 UTC
+  workflow_dispatch:       # allow manual trigger
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run fetch script
+        env:
+          AA_API_KEY: ${{ secrets.AA_API_KEY }}
+        run: python scripts/fetch_api_prices.py
+
+      - name: Check for changes
+        id: diff
+        run: |
+          git diff --quiet data/api_pricing.json data/history/changes.json \
+            && echo "changed=false" >> $GITHUB_OUTPUT \
+            || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit updated pricing data
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/api_pricing.json data/history/changes.json
+          git commit -m "chore: update API pricing data [$(date -u +%Y-%m-%d)]"
+          git push
+
+      - name: Open issue on significant price changes
+        if: steps.diff.outputs.changed == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const history = JSON.parse(fs.readFileSync('data/history/changes.json', 'utf8'));
+            const today = new Date().toISOString().split('T')[0];
+            const todayChanges = history.filter(c => c.date === today);
+            if (todayChanges.length === 0) return;
+
+            const rows = todayChanges.map(c => {
+              const dir = c.change_pct > 0 ? '🔴 +' : '🟢 ';
+              return `| ${c.provider} | ${c.model_or_plan} | ${c.field} | $${c.old_value} | $${c.new_value} | ${dir}${Math.abs(c.change_pct)}% |`;
+            }).join('\n');
+
+            const body = `## 💰 AI API Price Changes — ${today}\n\n` +
+              `| Provider | Model | Field | Old Price | New Price | Change |\n` +
+              `|---|---|---|---|---|---|\n` +
+              rows;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `[Price Alert] ${todayChanges.length} API pricing change(s) on ${today}`,
+              body,
+              labels: ['price-change'],
+            });

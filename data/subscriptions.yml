@@ -1,0 +1,688 @@
+version: "2.0"
+last_updated: "2026-03-10"
+providers:
+  - id: chatgpt
+    provider: ChatGPT
+    slug: openai
+    website: https://openai.com/chatgpt/pricing
+    logo_emoji: "🤖"
+    color: "#10a37f"
+    description: ChatGPT by OpenAI — the world's most widely used AI assistant.
+    last_updated: "2026-03-10"
+    plans:
+      - name: Free
+        price_monthly: 0
+        is_free: true
+        billing_period: month
+        tier: consumer
+        model_access: "GPT-5.2 Instant (limited)"
+        usage_limits: "~10 messages per 5 hours"
+        key_features:
+          - GPT-5.2 Instant
+          - Basic web browsing
+          - DALL-E (limited)
+        best_for: Casual users
+
+      - name: Go
+        price_monthly: 8
+        billing_period: month
+        tier: consumer
+        model_access: "GPT-5.2 Instant (unlimited)"
+        usage_limits: "Unlimited GPT-5.2 Instant"
+        key_features:
+          - GPT-5.2 Instant unlimited
+          - More uploads
+          - Longer memory
+        best_for: "Students, casual daily users"
+
+      - name: Plus
+        price_monthly: 20
+        highlighted: true
+        billing_period: month
+        tier: consumer
+        model_access: "GPT-5.2 Thinking"
+        usage_limits: "3,000 msgs/week on flagship"
+        key_features:
+          - GPT-5.2 Thinking
+          - Sora video
+          - DALL-E 4
+          - Advanced Voice
+          - Codex agent
+        best_for: "Professionals, power users"
+
+      - name: Pro
+        price_monthly: 200
+        billing_period: month
+        tier: consumer
+        model_access: "GPT-5.2 Pro (unlimited)"
+        usage_limits: "Unlimited (abuse limits apply)"
+        key_features:
+          - GPT-5.2 Pro unlimited
+          - Sora 2 Pro
+          - Max context
+          - Early previews
+        best_for: "AI power users, researchers"
+
+      - name: Business
+        price_monthly: 30
+        price_annual_monthly: 25
+        billing_period: month
+        tier: team
+        model_access: "GPT-5.2 Thinking"
+        usage_limits: "Team-level limits"
+        key_features:
+          - Admin console
+          - SOC 2
+          - Data not used for training
+          - Integrations
+        best_for: "Teams of 3–50"
+        per_seat: true
+
+      - name: Enterprise
+        price_monthly: null
+        billing_period: custom
+        tier: enterprise
+        model_access: "Full model suite"
+        usage_limits: "Custom"
+        key_features:
+          - SCIM/SSO
+          - Extended context
+          - RBAC
+          - Audit logs
+        best_for: Large organisations
+        per_seat: true
+
+    history:
+      - date: "2026-03-08"
+        event: "ChatGPT Go plan launched globally at $8/month"
+      - date: "2025-12-01"
+        event: "ChatGPT Pro plan launched at $200/month"
+      - date: "2023-02-01"
+        event: "ChatGPT Plus launched at $20/month"
+
+  - id: claude
+    provider: Claude
+    slug: anthropic
+    website: https://claude.ai/pricing
+    logo_emoji: "🧠"
+    color: "#d97757"
+    description: Claude by Anthropic — known for long context, safety, and coding.
+    last_updated: "2026-03-10"
+    plans:
+      - name: Free
+        price_monthly: 0
+        is_free: true
+        billing_period: month
+        tier: consumer
+        model_access: "Claude Sonnet 4.6 (limited)"
+        usage_limits: "~9 messages per 5-hour window"
+        key_features:
+          - Web search
+          - Image analysis
+          - Basic code generation
+        best_for: Casual users
+
+      - name: Pro
+        price_monthly: 20
+        price_annual_monthly: 17
+        highlighted: true
+        billing_period: month
+        tier: consumer
+        model_access: "All models incl. Opus 4.6"
+        usage_limits: "5x Free tier"
+        key_features:
+          - Claude Opus 4.6
+          - Claude Code
+          - Google Workspace
+          - Extended thinking
+        best_for: "Professionals, developers"
+
+      - name: Max 5x
+        price_monthly: 100
+        billing_period: month
+        tier: consumer
+        model_access: "All models incl. Opus 4.6"
+        usage_limits: "25x Free tier"
+        key_features:
+          - All Pro features
+          - 25x usage
+          - Persistent memory
+          - Priority access
+        best_for: "Heavy users, analysts"
+
+      - name: Max 20x
+        price_monthly: 200
+        billing_period: month
+        tier: consumer
+        model_access: "All models + Opus 4.6 1M ctx"
+        usage_limits: "100x Free tier"
+        key_features:
+          - 100x usage
+          - 1M token context
+          - Agent teams
+          - Adaptive thinking
+        best_for: "AI-first professionals"
+
+      - name: Team
+        price_monthly: 30
+        price_annual_monthly: 25
+        billing_period: month
+        tier: team
+        model_access: "All models"
+        usage_limits: "More than Pro per seat"
+        key_features:
+          - Admin console
+          - Shared projects
+          - 200K context
+          - Priority access
+        best_for: "Teams of 5+"
+        per_seat: true
+        min_seats: 5
+
+      - name: Enterprise
+        price_monthly: null
+        billing_period: custom
+        tier: enterprise
+        model_access: "Full model suite"
+        usage_limits: "Custom"
+        key_features:
+          - SCIM/SSO
+          - 400K+ context
+          - Audit logs
+          - Compliance API
+        best_for: Large organisations
+        per_seat: true
+
+    history:
+      - date: "2026-02-05"
+        event: "Claude Opus 4.6 released with 1M token context window"
+      - date: "2025-04-01"
+        event: "Claude Max plan introduced at $100 and $200 tiers"
+      - date: "2023-07-01"
+        event: "Claude Pro launched at $20/month"
+
+  - id: gemini
+    provider: Gemini
+    slug: google
+    website: https://one.google.com/about/google-ai-plans/
+    logo_emoji: "✨"
+    color: "#4285f4"
+    description: Gemini by Google — deeply integrated with Google Workspace.
+    last_updated: "2026-03-10"
+    plans:
+      - name: Free
+        price_monthly: 0
+        is_free: true
+        billing_period: month
+        tier: consumer
+        model_access: "Gemini 3 Flash (limited)"
+        usage_limits: "Daily limits; limited Thinking access"
+        key_features:
+          - Gemini 3 Flash
+          - Web grounding
+          - Basic image generation
+          - Google apps (limited)
+        best_for: Casual Google users
+
+      - name: AI Pro
+        price_monthly: 19.99
+        highlighted: true
+        billing_period: month
+        tier: consumer
+        model_access: "Gemini 3.1 Pro"
+        usage_limits: "Higher limits on Gemini 3.1 Pro"
+        key_features:
+          - Gemini 3.1 Pro
+          - Deep Research
+          - 2TB Google Drive
+          - NotebookLM Plus
+          - Gemini in Gmail/Docs/Sheets
+          - Veo video
+        best_for: "Google Workspace users, researchers"
+        notes: "Formerly Google One AI Premium / Gemini Advanced"
+
+      - name: AI Ultra
+        price_monthly: 249.99
+        billing_period: month
+        tier: consumer
+        model_access: "Gemini 3.1 Pro (highest limits)"
+        usage_limits: "Highest limits across all features"
+        key_features:
+          - Highest Gemini 3.1 Pro
+          - Veo 3 Pro video
+          - Project Mariner agent
+          - Jules 20x coding
+          - 30TB storage
+          - YouTube Premium
+        best_for: "Power users, developers, creators"
+
+      - name: Workspace AI
+        price_monthly: 30
+        billing_period: month
+        tier: team
+        model_access: "Gemini 3.1 Pro (org-grounded)"
+        usage_limits: "Business-grade per seat"
+        key_features:
+          - Gemini in all Workspace apps
+          - Admin controls
+          - Data governance
+          - Google Meet AI
+        best_for: Google Workspace teams
+        per_seat: true
+
+    history:
+      - date: "2025-05-14"
+        event: "Google AI Ultra ($249.99/mo) launched; Google One AI Premium rebranded to Google AI Pro"
+      - date: "2024-02-08"
+        event: "Gemini Advanced (Google One AI Premium) launched at $19.99/month"
+
+  - id: grok
+    provider: Grok
+    slug: xai
+    website: https://grok.com/plans
+    logo_emoji: "⚡"
+    color: "#e5e5e5"
+    description: Grok by xAI — real-time web and X/Twitter access, uncensored reasoning.
+    last_updated: "2026-03-10"
+    plans:
+      - name: Free
+        price_monthly: 0
+        is_free: true
+        billing_period: month
+        tier: consumer
+        model_access: "Grok 3 (limited)"
+        usage_limits: "~10 requests per 2 hours"
+        key_features:
+          - Grok 3
+          - Web search
+          - Image generation (Aurora)
+          - Voice mode (limited)
+        best_for: Casual users
+
+      - name: X Premium
+        price_monthly: 8
+        billing_period: month
+        tier: consumer
+        model_access: "Grok 3 (more limits)"
+        usage_limits: "Higher daily query limits via X"
+        key_features:
+          - Grok 3 via X
+          - Blue checkmark
+          - Ad revenue sharing
+          - Reduced ads
+        best_for: X platform users
+        notes: "Bundled with X social features"
+
+      - name: SuperGrok
+        price_monthly: 30
+        price_annual_monthly: 25
+        highlighted: true
+        billing_period: month
+        tier: consumer
+        model_access: "Grok 4 + Grok 4.1"
+        usage_limits: "High limits (standalone)"
+        key_features:
+          - Grok 4 full access
+          - DeepSearch
+          - Big Brain Mode
+          - 128K token memory
+          - Imagine image model
+        best_for: "AI power users (without X)"
+
+      - name: X Premium+
+        price_monthly: 40
+        price_annual_monthly: 33
+        billing_period: month
+        tier: consumer
+        model_access: "Grok 4 (priority via X)"
+        usage_limits: "Priority throughput on X"
+        key_features:
+          - Grok 4 via X
+          - Ad-free X browsing
+          - Priority compute
+          - All X Premium perks
+        best_for: "Heavy X users who also want Grok 4"
+
+      - name: SuperGrok Heavy
+        price_monthly: 300
+        billing_period: month
+        tier: consumer
+        model_access: "Grok 4 Heavy"
+        usage_limits: "Maximum compute priority"
+        key_features:
+          - Grok 4 Heavy
+          - 428K token memory
+          - Multi-agent
+          - Extended thinking
+          - Max priority
+        best_for: "Frontier researchers, power users"
+
+      - name: Grok Business
+        price_monthly: 30
+        billing_period: month
+        tier: team
+        model_access: "Grok 4 + 4.1"
+        usage_limits: "Team limits"
+        key_features:
+          - Team collaboration
+          - Centralized billing
+          - Admin controls
+          - Prompt sharing
+        best_for: "Startups, content teams"
+        per_seat: true
+
+    history:
+      - date: "2025-07-10"
+        event: "Grok 4 and SuperGrok Heavy ($300/month) launched"
+      - date: "2025-02-17"
+        event: "Grok 3 released; free access opened to all X users"
+      - date: "2025-02-17"
+        event: "SuperGrok standalone plan launched at $30/month"
+
+  - id: perplexity
+    provider: Perplexity
+    slug: perplexity
+    website: https://www.perplexity.ai/pricing
+    logo_emoji: "🔍"
+    color: "#20b2aa"
+    description: Perplexity — AI-powered answer engine with real-time web search.
+    last_updated: "2026-03-10"
+    plans:
+      - name: Free
+        price_monthly: 0
+        is_free: true
+        billing_period: month
+        tier: consumer
+        model_access: "Auto-select (Perplexity models)"
+        usage_limits: "5–20 Pro searches/day; unlimited standard"
+        key_features:
+          - Real-time web search
+          - Source citations
+          - Basic file upload
+          - Unlimited standard queries
+        best_for: Casual researchers
+
+      - name: Pro
+        price_monthly: 20
+        price_annual_monthly: 16.67
+        highlighted: true
+        billing_period: month
+        tier: consumer
+        model_access: "GPT-5.2, Claude 4.5, Gemini 3 Pro (switchable)"
+        usage_limits: "Unlimited Pro searches"
+        key_features:
+          - Unlimited Pro searches
+          - Multi-model switching
+          - Deep Research
+          - File analysis
+          - Image & video gen
+        best_for: "Researchers, professionals, students"
+
+      - name: Max
+        price_monthly: 200
+        billing_period: month
+        tier: consumer
+        model_access: "Full suite — highest access"
+        usage_limits: "Unlimited Labs — no restrictions"
+        key_features:
+          - Unlimited Labs
+          - Highest model access
+          - Comet Max assistant
+          - Early features
+          - Priority support
+        best_for: "Power researchers, heavy daily users"
+
+      - name: Enterprise Pro
+        price_monthly: 40
+        price_annual_monthly: 33.33
+        billing_period: month
+        tier: team
+        model_access: "Full suite"
+        usage_limits: "Shared team limits"
+        key_features:
+          - SSO/SAML
+          - Admin controls
+          - Shared Spaces
+          - Audit logs (50+ seats)
+          - SOC 2
+        best_for: "Teams doing everyday research"
+        per_seat: true
+
+      - name: Enterprise Max
+        price_monthly: 325
+        billing_period: month
+        tier: enterprise
+        model_access: "Full suite — maximum limits"
+        usage_limits: "Highest limits, custom SLA"
+        key_features:
+          - Unlimited Labs + Research
+          - SCIM provisioning
+          - Data retention config
+          - Priority support
+        best_for: "High-stakes research, legal, finance"
+        per_seat: true
+
+    history:
+      - date: "2026-02-01"
+        event: "Comet Max assistant and video generation launched for Enterprise Max"
+      - date: "2025-06-01"
+        event: "Perplexity Max plan introduced at $200/month"
+      - date: "2024-01-01"
+        event: "Perplexity Pro launched at $20/month"
+
+  - id: mistral
+    provider: Mistral
+    slug: mistral
+    website: https://mistral.ai/pricing
+    logo_emoji: "🌊"
+    color: "#f97316"
+    description: Mistral AI — European AI provider, privacy-focused with competitive pricing.
+    last_updated: "2026-03-10"
+    plans:
+      - name: Free
+        price_monthly: 0
+        is_free: true
+        billing_period: month
+        tier: consumer
+        model_access: "Mistral models (limited)"
+        usage_limits: "~25 messages; limited multimodal"
+        key_features:
+          - Flash Answers
+          - Code interpreter
+          - Document uploads
+          - AFP news search
+          - Image generation
+        best_for: "Casual users, EU privacy-conscious users"
+
+      - name: Pro
+        price_monthly: 14.99
+        highlighted: true
+        billing_period: month
+        tier: consumer
+        model_access: "Mistral Large + Codestral"
+        usage_limits: "~6x Free tier (fair-use)"
+        key_features:
+          - Unlimited chats (fair-use)
+          - Mistral Vibe coding
+          - More web searches
+          - 15GB document storage
+          - Extended thinking & deep research
+        best_for: "Developers, budget-conscious professionals"
+        notes: "Cheapest pro-tier among major AI providers"
+
+      - name: Team
+        price_monthly: null
+        billing_period: custom
+        tier: team
+        model_access: "Full model suite"
+        usage_limits: "200 flash answers/user/day; 30GB storage/user"
+        key_features:
+          - Domain verification
+          - Collaborative workspace
+          - Admin billing
+          - 30GB storage per seat
+        best_for: "European teams, regulated industries"
+        per_seat: true
+
+      - name: Enterprise
+        price_monthly: null
+        billing_period: custom
+        tier: enterprise
+        model_access: "Full suite + self-hosted option"
+        usage_limits: "Custom"
+        key_features:
+          - On-premises deployment
+          - Air-gapped support
+          - EU data residency
+          - Custom fine-tuning
+        best_for: "Governments, financial institutions"
+        per_seat: true
+
+    history:
+      - date: "2025-05-01"
+        event: "Mistral Vibe coding assistant launched in Le Chat Pro"
+      - date: "2025-02-01"
+        event: "Le Chat Pro subscription launched at $14.99/month"
+      - date: "2024-06-01"
+        event: "Le Chat launched as free public assistant"
+
+  - id: copilot
+    provider: Copilot
+    slug: microsoft
+    website: https://copilot.microsoft.com/
+    logo_emoji: "💠"
+    color: "#0078d4"
+    description: Microsoft Copilot — AI assistant integrated into Windows and Microsoft 365.
+    last_updated: "2026-03-10"
+    plans:
+      - name: Free
+        price_monthly: 0
+        is_free: true
+        billing_period: month
+        tier: consumer
+        model_access: "GPT-4 class (auto-select)"
+        usage_limits: "Daily message limits"
+        key_features:
+          - Web-grounded chat
+          - Image generation (Designer)
+          - Basic voice
+          - Included with Microsoft account
+        best_for: Windows / Microsoft users
+
+      - name: Copilot Pro
+        price_monthly: 20
+        highlighted: true
+        billing_period: month
+        tier: consumer
+        model_access: "GPT-4 Turbo (priority)"
+        usage_limits: "Priority access; 100 image boosts/day"
+        key_features:
+          - Priority GPT-4 Turbo
+          - Copilot in Word/Excel/PowerPoint/Outlook
+          - 100 daily image boosts
+          - AI agents
+        best_for: Microsoft 365 Personal/Family subscribers
+        notes: "Requires M365 Personal/Family for full Office integration"
+
+      - name: M365 Copilot
+        price_monthly: 30
+        billing_period: month
+        tier: team
+        model_access: "GPT-4 class + Microsoft Graph grounding"
+        usage_limits: "Enterprise limits; org data grounding"
+        key_features:
+          - Copilot in all M365 apps
+          - Microsoft Graph grounding
+          - Copilot Studio
+          - Admin analytics
+          - Enterprise compliance
+        best_for: Businesses on Microsoft 365
+        per_seat: true
+        notes: "Add-on to qualifying M365 Business/E3/E5. Annual commitment required."
+
+      - name: Enterprise
+        price_monthly: null
+        billing_period: custom
+        tier: enterprise
+        model_access: "Full Microsoft AI stack"
+        usage_limits: "Custom SLA"
+        key_features:
+          - Azure OpenAI integration
+          - Compliance pack
+          - Custom agents
+          - Volume discounts
+        best_for: Large enterprises
+        per_seat: true
+
+    history:
+      - date: "2025-11-01"
+        event: "Copilot Pro bundled into Microsoft 365 Premium; no longer standalone"
+      - date: "2024-01-15"
+        event: "Copilot Pro ($20/month) launched for individuals"
+      - date: "2023-11-01"
+        event: "Microsoft 365 Copilot enterprise add-on launched at $30/user/month"
+
+  - id: deepseek
+    provider: DeepSeek
+    slug: deepseek
+    website: https://chat.deepseek.com/
+    logo_emoji: "🐋"
+    color: "#7c5cbf"
+    description: DeepSeek — open-weight reasoning models from China, fully free to use.
+    last_updated: "2026-03-10"
+    plans:
+      - name: Free
+        price_monthly: 0
+        is_free: true
+        billing_period: month
+        tier: consumer
+        model_access: "DeepSeek-V3 + DeepSeek-R1 (Think mode)"
+        usage_limits: "Generous daily limits; may slow during peak"
+        key_features:
+          - DeepSeek-V3 chat
+          - R1 reasoning (Think mode)
+          - Web search
+          - File analysis
+          - Code generation
+          - Artifacts output
+        best_for: "Developers, researchers, cost-sensitive users"
+        notes: "No paid consumer subscription. Purely free chat. API available separately at ~$0.14/M tokens."
+
+    history:
+      - date: "2025-05-07"
+        event: "DeepSeek-V3-0505 released; web search and Artifacts added to chat"
+      - date: "2025-01-20"
+        event: "DeepSeek-R1 (reasoner / Think mode) released — caused global AI market selloff"
+      - date: "2025-01-10"
+        event: "DeepSeek-V3 launched; beat GPT-4o on benchmarks at a fraction of training cost"
+
+  - id: meta
+    provider: Meta AI
+    slug: meta
+    website: https://ai.meta.com
+    logo_emoji: "🦙"
+    color: "#0866ff"
+    description: Meta AI — free AI assistant powered by Llama, integrated into Meta apps.
+    last_updated: "2026-03-10"
+    plans:
+      - name: Free
+        price_monthly: 0
+        is_free: true
+        billing_period: month
+        tier: consumer
+        model_access: "Llama 4 Scout / Maverick"
+        usage_limits: "Currently unlimited; no paid tier"
+        key_features:
+          - Llama 4 Scout / Maverick
+          - WhatsApp, Instagram, Facebook, Messenger
+          - Standalone web app (meta.ai)
+          - Image generation
+          - Web search
+        best_for: Meta platform users
+        notes: "No paid consumer subscription announced."
+
+    history:
+      - date: "2025-04-05"
+        event: "Llama 4 Scout and Maverick released; Meta AI updated with latest models"
+      - date: "2024-04-18"
+        event: "Meta AI launched publicly across WhatsApp, Instagram, Facebook, Messenger"

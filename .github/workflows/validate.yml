@@ -1,0 +1,23 @@
+name: Validate Data
+
+on:
+  pull_request:
+    paths:
+      - "data/subscriptions.yml"
+      - "data/api_pricing.json"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Validate data files
+        run: npx tsx scripts/validate_data.ts
