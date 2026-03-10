@@ -1,6 +1,6 @@
 # AI Pricing Tracker
 
-**🔗 Live site: [ai-pricing-tracker-mu.vercel.app](https://ai-pricing-tracker-mu.vercel.app)**
+**🔗 Live site: <a href="https://ai-pricing-tracker-mu.vercel.app" target="_blank">ai-pricing-tracker-mu.vercel.app</a>**
 
 A dashboard that tracks and compares pricing for major AI chatbots — both consumer subscription plans and developer API token pricing — in one place.
 
