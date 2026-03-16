@@ -1,1 +1,302 @@
-[]
+[
+  {
+    "date": "2026-03-16",
+    "provider": "Meta",
+    "model_or_plan": "Llama 3.1 Instruct 405B",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 4,
+    "new_value": 3,
+    "change_pct": -25.0
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "Meta",
+    "model_or_plan": "Llama 3.1 Instruct 405B",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 9.5,
+    "new_value": 10,
+    "change_pct": 5.26
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "Meta",
+    "model_or_plan": "Llama 4 Maverick",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.31,
+    "new_value": 0.27,
+    "change_pct": -12.9
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "NVIDIA",
+    "model_or_plan": "NVIDIA Nemotron Nano 9B V2 (Non-reasoning)",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.06,
+    "new_value": 0.05,
+    "change_pct": -16.67
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "NVIDIA",
+    "model_or_plan": "NVIDIA Nemotron Nano 9B V2 (Non-reasoning)",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.23,
+    "new_value": 0.195,
+    "change_pct": -15.22
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "Allen Institute for AI",
+    "model_or_plan": "Olmo 3 7B Think",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.12,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "Allen Institute for AI",
+    "model_or_plan": "Olmo 3 7B Think",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.2,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "LG AI Research",
+    "model_or_plan": "EXAONE 4.0 32B (Non-reasoning)",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.6,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "LG AI Research",
+    "model_or_plan": "EXAONE 4.0 32B (Non-reasoning)",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 1,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "LG AI Research",
+    "model_or_plan": "EXAONE 4.0 32B (Reasoning)",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.6,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "LG AI Research",
+    "model_or_plan": "EXAONE 4.0 32B (Reasoning)",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 1,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "Alibaba",
+    "model_or_plan": "Qwen3 Coder Next",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.2,
+    "new_value": 0.35,
+    "change_pct": 75.0
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "InclusionAI",
+    "model_or_plan": "Ling-mini-2.0",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.07,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "InclusionAI",
+    "model_or_plan": "Ling-mini-2.0",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.28,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "Meta",
+    "model_or_plan": "Llama 3.2 Instruct 3B",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.08,
+    "new_value": 0.085,
+    "change_pct": 6.25
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "Meta",
+    "model_or_plan": "Llama 3.2 Instruct 3B",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.08,
+    "new_value": 0.085,
+    "change_pct": 6.25
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "DeepSeek",
+    "model_or_plan": "DeepSeek V3.1 (Reasoning)",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.59,
+    "new_value": 0.6,
+    "change_pct": 1.69
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "DeepSeek",
+    "model_or_plan": "DeepSeek V3.1 (Reasoning)",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 1.69,
+    "new_value": 1.7,
+    "change_pct": 0.59
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "DeepSeek",
+    "model_or_plan": "DeepSeek V3.1 (Non-reasoning)",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.555,
+    "new_value": 0.56,
+    "change_pct": 0.9
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "DeepSeek",
+    "model_or_plan": "DeepSeek V3.1 (Non-reasoning)",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 1.67,
+    "new_value": 1.68,
+    "change_pct": 0.6
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "Microsoft Azure",
+    "model_or_plan": "Phi-3 Mini Instruct 3.8B",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.13,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "Microsoft Azure",
+    "model_or_plan": "Phi-3 Mini Instruct 3.8B",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.52,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "Kimi",
+    "model_or_plan": "Kimi K2 0905",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.99,
+    "new_value": 0.8,
+    "change_pct": -19.19
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "Kimi",
+    "model_or_plan": "Kimi K2 0905",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 2.5,
+    "new_value": 2.25,
+    "change_pct": -10.0
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "Kimi",
+    "model_or_plan": "Kimi K2",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.6,
+    "new_value": 0.57,
+    "change_pct": -5.0
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "Kimi",
+    "model_or_plan": "Kimi K2",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 2.5,
+    "new_value": 2.4,
+    "change_pct": -4.0
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "Alibaba",
+    "model_or_plan": "Qwen2.5 Coder Instruct 32B",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.2,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "Alibaba",
+    "model_or_plan": "Qwen2.5 Coder Instruct 32B",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.2,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "Alibaba",
+    "model_or_plan": "QwQ 32B",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.43,
+    "new_value": 0.66,
+    "change_pct": 53.49
+  },
+  {
+    "date": "2026-03-16",
+    "provider": "Alibaba",
+    "model_or_plan": "QwQ 32B",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.6,
+    "new_value": 1,
+    "change_pct": 66.67
+  }
+]
