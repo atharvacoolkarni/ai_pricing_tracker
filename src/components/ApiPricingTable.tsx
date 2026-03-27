@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import type { ApiModel } from "@/lib/types";
-import { formatPrice, calcMonthlyCost } from "@/lib/utils";
-import { Calculator, ChevronDown, ChevronUp, ArrowUpDown } from "lucide-react";
+import { formatPrice, calcMonthlyCost, exportToCSV, exportToJSON } from "@/lib/utils";
+import { Calculator, ChevronDown, ChevronUp, ArrowUpDown, Download } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type SortKey = "name" | "provider" | "input_price_per_1m" | "output_price_per_1m" | "blended_price_per_1m" | "speed_tok_per_s" | "intelligence_score";
@@ -19,49 +20,76 @@ const SOURCE_META: Record<string, { label: string; url: string; color: string; b
   "artificial-analysis": {
     label: "Artificial Analysis",
     url: "https://artificialanalysis.ai",
-    color: "text-emerald-800",
-    bg: "bg-emerald-50",
-    border: "border-emerald-200",
+    color: "text-emerald-800 dark:text-emerald-300",
+    bg: "bg-emerald-50 dark:bg-emerald-900/30",
+    border: "border-emerald-200 dark:border-emerald-700",
     dot: "bg-emerald-500",
   },
   "openrouter": {
     label: "OpenRouter (fallback)",
     url: "https://openrouter.ai",
-    color: "text-amber-800",
-    bg: "bg-amber-50",
-    border: "border-amber-200",
+    color: "text-amber-800 dark:text-amber-300",
+    bg: "bg-amber-50 dark:bg-amber-900/30",
+    border: "border-amber-200 dark:border-amber-700",
     dot: "bg-amber-400",
   },
   "manual": {
     label: "Manual / seed data",
     url: "#",
-    color: "text-gray-700",
-    bg: "bg-gray-50",
-    border: "border-gray-200",
+    color: "text-gray-700 dark:text-gray-300",
+    bg: "bg-gray-50 dark:bg-gray-800",
+    border: "border-gray-200 dark:border-gray-700",
     dot: "bg-gray-400",
   },
 };
 
 const PROVIDER_COLORS: Record<string, string> = {
-  openai: "bg-green-100 text-green-800",
-  anthropic: "bg-orange-100 text-orange-800",
-  google: "bg-blue-100 text-blue-800",
-  meta: "bg-indigo-100 text-indigo-800",
-  deepseek: "bg-cyan-100 text-cyan-800",
-  mistral: "bg-purple-100 text-purple-800",
-  xai: "bg-gray-100 text-gray-800",
-  perplexity: "bg-teal-100 text-teal-800",
+  openai: "bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300",
+  anthropic: "bg-orange-100 text-orange-800 dark:bg-orange-900/50 dark:text-orange-300",
+  google: "bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300",
+  meta: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/50 dark:text-indigo-300",
+  deepseek: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900/50 dark:text-cyan-300",
+  mistral: "bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300",
+  xai: "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300",
+  perplexity: "bg-teal-100 text-teal-800 dark:bg-teal-900/50 dark:text-teal-300",
 };
 
 function providerBadge(slug: string) {
-  return PROVIDER_COLORS[slug] ?? "bg-gray-100 text-gray-800";
+  return PROVIDER_COLORS[slug] ?? "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300";
 }
 
 export default function ApiPricingTable({ models, dataSource, fetchedAt }: Props) {
-  const [search, setSearch] = useState("");
-  const [providerFilter, setProviderFilter] = useState("all");
-  const [sortKey, setSortKey] = useState<SortKey>("blended_price_per_1m");
-  const [sortDir, setSortDir] = useState<SortDir>("asc");
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Initialize state from URL params
+  const [search, setSearch] = useState(searchParams.get("q") ?? "");
+  const [providerFilter, setProviderFilter] = useState(searchParams.get("provider") ?? "all");
+  const [sortKey, setSortKey] = useState<SortKey>((searchParams.get("sort") as SortKey) || "blended_price_per_1m");
+  const [sortDir, setSortDir] = useState<SortDir>((searchParams.get("dir") as SortDir) || "asc");
+
+  // Update URL params helper
+  const updateParams = useCallback((updates: Record<string, string>) => {
+    const params = new URLSearchParams(searchParams.toString());
+    for (const [key, value] of Object.entries(updates)) {
+      if (value && value !== "all" && value !== "blended_price_per_1m" && !(key === "dir" && value === "asc")) {
+        params.set(key, value);
+      } else {
+        params.delete(key);
+      }
+    }
+    const queryString = params.toString();
+    router.replace(`${pathname}${queryString ? `?${queryString}` : ""}`, { scroll: false });
+  }, [searchParams, router, pathname]);
+
+  // Debounced search URL update
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      updateParams({ q: search });
+    }, 300);
+    return () => clearTimeout(timeout);
+  }, [search, updateParams]);
 
   // Detect if any model has blended/speed/intelligence data
   const hasBlended = useMemo(() => models.some((m) => m.blended_price_per_1m != null), [models]);
@@ -102,11 +130,19 @@ export default function ApiPricingTable({ models, dataSource, fetchedAt }: Props
 
   function toggleSort(key: SortKey) {
     if (sortKey === key) {
-      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+      const newDir = sortDir === "asc" ? "desc" : "asc";
+      setSortDir(newDir);
+      updateParams({ sort: key, dir: newDir });
     } else {
       setSortKey(key);
       setSortDir("asc");
+      updateParams({ sort: key, dir: "asc" });
     }
+  }
+
+  function handleProviderFilter(provider: string) {
+    setProviderFilter(provider);
+    updateParams({ provider });
   }
 
   function SortIcon({ k }: { k: SortKey }) {
@@ -114,6 +150,18 @@ export default function ApiPricingTable({ models, dataSource, fetchedAt }: Props
     return sortDir === "asc"
       ? <ChevronUp className="ml-1 h-3 w-3 inline" />
       : <ChevronDown className="ml-1 h-3 w-3 inline" />;
+  }
+
+  function getExportData() {
+    return filtered.map((m) => ({
+      Model: m.name,
+      Provider: m.provider,
+      "Input/1M": m.is_free ? "Free" : formatPrice(m.input_price_per_1m),
+      "Output/1M": m.is_free ? "Free" : formatPrice(m.output_price_per_1m),
+      "Blended/1M": m.is_free ? "Free" : m.blended_price_per_1m != null ? formatPrice(m.blended_price_per_1m) : "",
+      Speed: m.speed_tok_per_s != null ? Math.round(m.speed_tok_per_s) : "",
+      Intelligence: m.intelligence_score ?? "",
+    }));
   }
 
   return (
@@ -162,51 +210,65 @@ export default function ApiPricingTable({ models, dataSource, fetchedAt }: Props
           placeholder="Search models…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 w-56"
+          className="rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-blue-500 w-56"
         />
         <select
           value={providerFilter}
-          onChange={(e) => setProviderFilter(e.target.value)}
-          className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
+          onChange={(e) => handleProviderFilter(e.target.value)}
+          className="rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-blue-500"
         >
           <option value="all">All providers</option>
           {providers.map((p) => (
             <option key={p} value={p}>{p.charAt(0).toUpperCase() + p.slice(1)}</option>
           ))}
         </select>
-        <span className="ml-auto text-sm text-gray-500">{filtered.length} models</span>
+        <span className="ml-auto text-sm text-gray-500 dark:text-gray-400">{filtered.length} models</span>
         <button
           onClick={() => setShowCalc(!showCalc)}
-          className="flex items-center gap-1.5 rounded-lg border border-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50 transition-colors"
+          className="flex items-center gap-1.5 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
         >
           <Calculator className="h-4 w-4" />
           Cost Calculator
+        </button>
+        <button
+          onClick={() => exportToCSV(getExportData(), "api-pricing")}
+          className="flex items-center gap-1.5 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+        >
+          <Download className="h-4 w-4" />
+          CSV
+        </button>
+        <button
+          onClick={() => exportToJSON(getExportData(), "api-pricing")}
+          className="flex items-center gap-1.5 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+        >
+          <Download className="h-4 w-4" />
+          JSON
         </button>
       </div>
 
       {/* Calculator panel */}
       {showCalc && (
-        <div className="rounded-xl border border-blue-200 bg-blue-50 p-4">
-          <h3 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+        <div className="rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 p-4">
+          <h3 className="font-semibold text-blue-900 dark:text-blue-200 mb-3 flex items-center gap-2">
             <Calculator className="h-4 w-4" /> Estimate Monthly API Cost
           </h3>
           <div className="flex flex-wrap gap-4 mb-4">
             <label className="flex flex-col gap-1 text-sm">
-              <span className="text-gray-600">Input tokens / month</span>
+              <span className="text-gray-600 dark:text-gray-300">Input tokens / month</span>
               <input
                 type="number"
                 value={inputTokens}
                 onChange={(e) => setInputTokens(Number(e.target.value))}
-                className="w-40 rounded-lg border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-40 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-100"
               />
             </label>
             <label className="flex flex-col gap-1 text-sm">
-              <span className="text-gray-600">Output tokens / month</span>
+              <span className="text-gray-600 dark:text-gray-300">Output tokens / month</span>
               <input
                 type="number"
                 value={outputTokens}
                 onChange={(e) => setOutputTokens(Number(e.target.value))}
-                className="w-40 rounded-lg border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-40 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-100"
               />
             </label>
           </div>
@@ -214,10 +276,10 @@ export default function ApiPricingTable({ models, dataSource, fetchedAt }: Props
             {filtered.slice(0, 12).map((m) => {
               const cost = calcMonthlyCost(inputTokens, outputTokens, m.input_price_per_1m, m.output_price_per_1m);
               return (
-                <div key={m.id} className="rounded-lg bg-white border border-blue-100 p-3">
-                  <div className="text-xs text-gray-500 mb-0.5">{m.provider}</div>
-                  <div className="font-medium text-sm text-gray-900 truncate">{m.name}</div>
-                  <div className="text-lg font-bold text-blue-700 mt-1">
+                <div key={m.id} className="rounded-lg bg-white dark:bg-gray-800 border border-blue-100 dark:border-blue-900 p-3">
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-0.5">{m.provider}</div>
+                  <div className="font-medium text-sm text-gray-900 dark:text-gray-100 truncate">{m.name}</div>
+                  <div className="text-lg font-bold text-blue-700 dark:text-blue-400 mt-1">
                     {cost !== null ? `$${cost.toFixed(2)}` : "—"}
                   </div>
                 </div>
@@ -228,9 +290,9 @@ export default function ApiPricingTable({ models, dataSource, fetchedAt }: Props
       )}
 
       {/* Table */}
-      <div className="overflow-x-auto rounded-xl border border-gray-200">
+      <div className="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700">
         <table className="w-full text-sm">
-          <thead className="bg-gray-50 text-gray-600 text-xs uppercase tracking-wide">
+          <thead className="bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-xs uppercase tracking-wide">
             <tr>
               <th className="px-4 py-3 text-left cursor-pointer" onClick={() => toggleSort("name")}>
                 Model <SortIcon k="name" />
@@ -261,63 +323,63 @@ export default function ApiPricingTable({ models, dataSource, fetchedAt }: Props
               )}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
+          <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
             {filtered.map((m) => (
-              <tr key={m.id} className="hover:bg-gray-50 transition-colors">
-                <td className="px-4 py-3 font-medium text-gray-900">{m.name}</td>
+              <tr key={m.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                <td className="px-4 py-3 font-medium text-gray-900 dark:text-gray-100">{m.name}</td>
                 <td className="px-4 py-3">
                   <span className={cn("inline-block rounded-full px-2 py-0.5 text-xs font-medium", providerBadge(m.provider_slug))}>
                     {m.provider}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-right font-mono text-gray-700">
-                  {m.is_free ? <span className="text-green-600 font-semibold">Free</span> : formatPrice(m.input_price_per_1m)}
+                <td className="px-4 py-3 text-right font-mono text-gray-700 dark:text-gray-300">
+                  {m.is_free ? <span className="text-green-600 dark:text-green-400 font-semibold">Free</span> : formatPrice(m.input_price_per_1m)}
                 </td>
-                <td className="px-4 py-3 text-right font-mono text-gray-700">
-                  {m.is_free ? <span className="text-green-600 font-semibold">Free</span> : formatPrice(m.output_price_per_1m)}
+                <td className="px-4 py-3 text-right font-mono text-gray-700 dark:text-gray-300">
+                  {m.is_free ? <span className="text-green-600 dark:text-green-400 font-semibold">Free</span> : formatPrice(m.output_price_per_1m)}
                 </td>
                 {hasBlended && (
-                  <td className="px-4 py-3 text-right font-mono text-gray-700">
-                    {m.is_free ? <span className="text-green-600 font-semibold">Free</span>
+                  <td className="px-4 py-3 text-right font-mono text-gray-700 dark:text-gray-300">
+                    {m.is_free ? <span className="text-green-600 dark:text-green-400 font-semibold">Free</span>
                       : m.blended_price_per_1m != null ? formatPrice(m.blended_price_per_1m)
-                      : <span className="text-gray-300">—</span>}
+                      : <span className="text-gray-300 dark:text-gray-600">—</span>}
                   </td>
                 )}
                 {hasSpeed && (
                   <td className="px-4 py-3 text-right">
                     {m.speed_tok_per_s != null ? (
                       <div className="flex items-center justify-end gap-2">
-                        <div className="h-1.5 w-16 rounded-full bg-gray-200 overflow-hidden">
+                        <div className="h-1.5 w-16 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
                           <div
                             className="h-full rounded-full bg-blue-500"
                             style={{ width: `${Math.round((m.speed_tok_per_s / maxSpeed) * 100)}%` }}
                           />
                         </div>
-                        <span className="font-mono text-gray-700 text-xs w-10 text-right">{Math.round(m.speed_tok_per_s)}</span>
+                        <span className="font-mono text-gray-700 dark:text-gray-300 text-xs w-10 text-right">{Math.round(m.speed_tok_per_s)}</span>
                       </div>
-                    ) : <span className="text-gray-300">—</span>}
+                    ) : <span className="text-gray-300 dark:text-gray-600">—</span>}
                   </td>
                 )}
                 {hasIntelligence && (
                   <td className="px-4 py-3 text-right">
                     {m.intelligence_score != null ? (
                       <div className="flex items-center justify-end gap-2">
-                        <div className="h-1.5 w-16 rounded-full bg-gray-200 overflow-hidden">
+                        <div className="h-1.5 w-16 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
                           <div
                             className="h-full rounded-full bg-gradient-to-r from-blue-400 to-violet-500"
                             style={{ width: `${Math.round((m.intelligence_score / maxIntelligence) * 100)}%` }}
                           />
                         </div>
-                        <span className="font-mono text-gray-700 text-xs w-10 text-right">{m.intelligence_score}</span>
+                        <span className="font-mono text-gray-700 dark:text-gray-300 text-xs w-10 text-right">{m.intelligence_score}</span>
                       </div>
-                    ) : <span className="text-gray-300">—</span>}
+                    ) : <span className="text-gray-300 dark:text-gray-600">—</span>}
                   </td>
                 )}
               </tr>
             ))}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={hasBlended || hasSpeed || hasIntelligence ? 6 : 4} className="px-4 py-8 text-center text-gray-400">No models match your filters.</td>
+                <td colSpan={hasBlended || hasSpeed || hasIntelligence ? 6 : 4} className="px-4 py-8 text-center text-gray-400 dark:text-gray-500">No models match your filters.</td>
               </tr>
             )}
           </tbody>

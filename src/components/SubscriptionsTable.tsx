@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import type { ProviderSubscription, Plan } from "@/lib/types";
-import { cn } from "@/lib/utils";
-import { ChevronDown, ChevronUp, ArrowUpDown } from "lucide-react";
+import { cn, exportToCSV, exportToJSON } from "@/lib/utils";
+import { ChevronDown, ChevronUp, ArrowUpDown, Download } from "lucide-react";
 import ProviderDrawer from "./ProviderDrawer";
 
 interface FlatPlan extends Plan {
@@ -28,18 +29,45 @@ const TIER_LABELS: Record<string, string> = {
 };
 
 const TIER_BADGE: Record<string, string> = {
-  consumer: "bg-blue-100 text-blue-700",
-  team: "bg-violet-100 text-violet-700",
-  enterprise: "bg-amber-100 text-amber-700",
+  consumer: "bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300",
+  team: "bg-violet-100 text-violet-700 dark:bg-violet-900/50 dark:text-violet-300",
+  enterprise: "bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300",
 };
 
 export default function SubscriptionsTable({ providers }: Props) {
-  const [search, setSearch] = useState("");
-  const [tierFilter, setTierFilter] = useState<string>("all");
-  const [providerFilter, setProviderFilter] = useState<string>("all");
-  const [sortKey, setSortKey] = useState<SortKey>("price_monthly");
-  const [sortDir, setSortDir] = useState<SortDir>("asc");
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Initialize state from URL params
+  const [search, setSearch] = useState(searchParams.get("q") ?? "");
+  const [tierFilter, setTierFilter] = useState<string>(searchParams.get("tier") ?? "all");
+  const [providerFilter, setProviderFilter] = useState<string>(searchParams.get("provider") ?? "all");
+  const [sortKey, setSortKey] = useState<SortKey>((searchParams.get("sort") as SortKey) || "price_monthly");
+  const [sortDir, setSortDir] = useState<SortDir>((searchParams.get("dir") as SortDir) || "asc");
   const [drawerProvider, setDrawerProvider] = useState<ProviderSubscription | null>(null);
+
+  // Update URL params helper
+  const updateParams = useCallback((updates: Record<string, string>) => {
+    const params = new URLSearchParams(searchParams.toString());
+    for (const [key, value] of Object.entries(updates)) {
+      if (value && value !== "all" && value !== "price_monthly" && !(key === "dir" && value === "asc")) {
+        params.set(key, value);
+      } else {
+        params.delete(key);
+      }
+    }
+    const queryString = params.toString();
+    router.replace(`${pathname}${queryString ? `?${queryString}` : ""}`, { scroll: false });
+  }, [searchParams, router, pathname]);
+
+  // Debounced search URL update
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      updateParams({ q: search });
+    }, 300);
+    return () => clearTimeout(timeout);
+  }, [search, updateParams]);
 
   const allPlans: FlatPlan[] = useMemo(() =>
     providers.flatMap((p) =>
@@ -89,8 +117,25 @@ export default function SubscriptionsTable({ providers }: Props) {
   }, [allPlans, search, tierFilter, providerFilter, sortKey, sortDir]);
 
   function toggleSort(key: SortKey) {
-    if (sortKey === key) setSortDir((d) => (d === "asc" ? "desc" : "asc"));
-    else { setSortKey(key); setSortDir("asc"); }
+    if (sortKey === key) {
+      const newDir = sortDir === "asc" ? "desc" : "asc";
+      setSortDir(newDir);
+      updateParams({ sort: key, dir: newDir });
+    } else {
+      setSortKey(key);
+      setSortDir("asc");
+      updateParams({ sort: key, dir: "asc" });
+    }
+  }
+
+  function handleTierFilter(tier: string) {
+    setTierFilter(tier);
+    updateParams({ tier });
+  }
+
+  function handleProviderFilter(provider: string) {
+    setProviderFilter(provider);
+    updateParams({ provider });
   }
 
   function SortIcon({ k }: { k: SortKey }) {
@@ -105,6 +150,17 @@ export default function SubscriptionsTable({ providers }: Props) {
     if (prov) setDrawerProvider(prov);
   }
 
+  function getExportData() {
+    return filtered.map((plan) => ({
+      Provider: plan.providerName,
+      Plan: plan.name,
+      Price: plan.is_free ? "Free" : plan.price_monthly === null ? "Contact sales" : `$${plan.price_monthly}`,
+      Tier: TIER_LABELS[plan.tier ?? "consumer"] ?? plan.tier,
+      "Model Access": plan.model_access ?? "",
+      "Usage Limits": plan.usage_limits ?? "",
+    }));
+  }
+
   return (
     <>
       <div className="space-y-4">
@@ -115,11 +171,25 @@ export default function SubscriptionsTable({ providers }: Props) {
             placeholder="Search providers, plans, models…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 w-72"
+            className="rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-400 w-72"
           />
           <span className="ml-auto text-sm text-gray-500">
             {filtered.length} plan{filtered.length !== 1 ? "s" : ""}
           </span>
+          <button
+            onClick={() => exportToCSV(getExportData(), "subscriptions")}
+            className="flex items-center gap-1.5 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+          >
+            <Download className="h-4 w-4" />
+            CSV
+          </button>
+          <button
+            onClick={() => exportToJSON(getExportData(), "subscriptions")}
+            className="flex items-center gap-1.5 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+          >
+            <Download className="h-4 w-4" />
+            JSON
+          </button>
         </div>
 
         {/* Tier filter chips */}
@@ -128,12 +198,12 @@ export default function SubscriptionsTable({ providers }: Props) {
           {["all", "consumer", "team", "enterprise"].map((t) => (
             <button
               key={t}
-              onClick={() => setTierFilter(t)}
+              onClick={() => handleTierFilter(t)}
               className={cn(
                 "rounded-full px-3 py-1 text-xs font-medium border transition-colors",
                 tierFilter === t
-                  ? "bg-gray-900 text-white border-gray-900"
-                  : "bg-white text-gray-600 border-gray-300 hover:border-gray-500"
+                  ? "bg-gray-900 text-white border-gray-900 dark:bg-gray-100 dark:text-gray-900 dark:border-gray-100"
+                  : "bg-white text-gray-600 border-gray-300 hover:border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:border-gray-500"
               )}
             >
               {t === "all" ? "All" : TIER_LABELS[t]}
@@ -145,12 +215,12 @@ export default function SubscriptionsTable({ providers }: Props) {
         <div className="flex flex-wrap gap-2 items-center">
           <span className="text-xs font-medium text-gray-500 uppercase tracking-wide mr-1">Provider</span>
           <button
-            onClick={() => setProviderFilter("all")}
+            onClick={() => handleProviderFilter("all")}
             className={cn(
               "rounded-full px-3 py-1 text-xs font-medium border transition-colors",
               providerFilter === "all"
-                ? "bg-gray-900 text-white border-gray-900"
-                : "bg-white text-gray-600 border-gray-300 hover:border-gray-500"
+                ? "bg-gray-900 text-white border-gray-900 dark:bg-gray-100 dark:text-gray-900 dark:border-gray-100"
+                : "bg-white text-gray-600 border-gray-300 hover:border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:border-gray-500"
             )}
           >
             All
@@ -158,12 +228,12 @@ export default function SubscriptionsTable({ providers }: Props) {
           {providers.map((p) => (
             <button
               key={p.slug}
-              onClick={() => setProviderFilter(p.slug)}
+              onClick={() => handleProviderFilter(p.slug)}
               className={cn(
                 "rounded-full px-3 py-1 text-xs font-medium border transition-colors flex items-center gap-1.5",
                 providerFilter === p.slug
                   ? "text-white border-transparent"
-                  : "bg-white text-gray-700 border-gray-300 hover:border-gray-500"
+                  : "bg-white text-gray-700 border-gray-300 hover:border-gray-500 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:border-gray-500"
               )}
               style={providerFilter === p.slug ? { backgroundColor: p.color, borderColor: p.color } : undefined}
             >
@@ -174,9 +244,9 @@ export default function SubscriptionsTable({ providers }: Props) {
         </div>
 
         {/* Table */}
-        <div className="overflow-x-auto rounded-xl border border-gray-200">
+        <div className="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700">
           <table className="w-full text-sm">
-            <thead className="bg-gray-50 text-gray-600 text-xs uppercase tracking-wide">
+            <thead className="bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-xs uppercase tracking-wide">
               <tr>
                 <th className="px-4 py-3 text-left cursor-pointer whitespace-nowrap" onClick={() => toggleSort("provider")}>
                   Provider <SortIcon k="provider" />
@@ -193,9 +263,9 @@ export default function SubscriptionsTable({ providers }: Props) {
                 <th className="px-4 py-3 text-left">Features</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
               {filtered.map((plan, i) => (
-                <tr key={`${plan.providerSlug}-${plan.name}-${i}`} className="hover:bg-gray-50 transition-colors">
+                <tr key={`${plan.providerSlug}-${plan.name}-${i}`} className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                   {/* Provider cell — clickable to open drawer */}
                   <td className="px-4 py-3">
                     <button
@@ -260,12 +330,12 @@ export default function SubscriptionsTable({ providers }: Props) {
                   </td>
 
                   {/* Model Access */}
-                  <td className="px-4 py-3 text-gray-600 max-w-[200px]">
+                  <td className="px-4 py-3 text-gray-600 dark:text-gray-300 max-w-[200px]">
                     <span className="text-xs leading-relaxed">{plan.model_access ?? "—"}</span>
                   </td>
 
                   {/* Usage Limits */}
-                  <td className="px-4 py-3 text-gray-600 max-w-[180px]">
+                  <td className="px-4 py-3 text-gray-600 dark:text-gray-300 max-w-[180px]">
                     <span className="text-xs leading-relaxed">{plan.usage_limits ?? "—"}</span>
                   </td>
 
@@ -303,12 +373,12 @@ function FeatureTags({ features }: { features: string[] }) {
   return (
     <div className="flex flex-wrap gap-1 items-center">
       {visible.map((f, i) => (
-        <span key={i} className="rounded-md bg-gray-100 text-gray-600 text-xs px-1.5 py-0.5 whitespace-nowrap">
+        <span key={i} className="rounded-md bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs px-1.5 py-0.5 whitespace-nowrap">
           {f}
         </span>
       ))}
       {overflow > 0 && (
-        <span className="text-xs text-gray-400 ml-0.5">+{overflow}</span>
+        <span className="text-xs text-gray-400 dark:text-gray-500 ml-0.5">+{overflow}</span>
       )}
     </div>
   );

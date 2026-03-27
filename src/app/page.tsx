@@ -19,23 +19,23 @@ export default function HomePage() {
     <div className="space-y-10">
       {/* Hero */}
       <div className="text-center space-y-4 py-8">
-        <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 sm:text-5xl">
           💡 AI Pricing Tracker
         </h1>
-        <p className="mx-auto max-w-2xl text-lg text-gray-600">
+        <p className="mx-auto max-w-2xl text-lg text-gray-600 dark:text-gray-400">
           One place to compare subscription plans and API token costs across all major AI providers.
           Updated daily — never overpay again.
         </p>
         <div className="flex flex-wrap justify-center gap-3 pt-2">
           <Link
             href="/subscriptions"
-            className="flex items-center gap-2 rounded-xl bg-gray-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-gray-700 transition-colors"
+            className="flex items-center gap-2 rounded-xl bg-gray-900 dark:bg-gray-100 px-5 py-2.5 text-sm font-semibold text-white dark:text-gray-900 hover:bg-gray-700 dark:hover:bg-gray-200 transition-colors"
           >
             <CreditCard className="h-4 w-4" /> Compare Subscriptions
           </Link>
           <Link
             href="/api-pricing"
-            className="flex items-center gap-2 rounded-xl border border-gray-300 bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+            className="flex items-center gap-2 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-5 py-2.5 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
           >
             <BarChart2 className="h-4 w-4" /> Browse API Pricing
           </Link>
@@ -50,45 +50,45 @@ export default function HomePage() {
           { label: "API models", value: totalModels, emoji: "🤖" },
           { label: "Price changes logged", value: history.length, emoji: "📈" },
         ].map((s) => (
-          <div key={s.label} className="rounded-xl bg-white border border-gray-200 p-5 text-center">
+          <div key={s.label} className="rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-5 text-center">
             <div className="text-3xl mb-1">{s.emoji}</div>
-            <div className="text-2xl font-bold text-gray-900">{s.value}</div>
-            <div className="text-sm text-gray-500">{s.label}</div>
+            <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{s.value}</div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">{s.label}</div>
           </div>
         ))}
       </div>
 
       {/* Quick links */}
       <div className="grid sm:grid-cols-3 gap-4">
-        <Link href="/subscriptions" className="group rounded-xl bg-white border border-gray-200 p-6 hover:border-gray-400 hover:shadow-sm transition-all">
-          <CreditCard className="h-8 w-8 text-purple-600 mb-3" />
-          <h2 className="text-lg font-semibold text-gray-900">Subscription Plans</h2>
-          <p className="mt-1 text-sm text-gray-500">
+        <Link href="/subscriptions" className="group rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 hover:border-gray-400 dark:hover:border-gray-500 hover:shadow-sm transition-all">
+          <CreditCard className="h-8 w-8 text-purple-600 dark:text-purple-400 mb-3" />
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Subscription Plans</h2>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             Compare Free, Plus, Pro, and Enterprise tiers from {totalProviders} AI providers. Filter by price, features, and rate limits.
           </p>
-          <div className="mt-3 flex items-center gap-1 text-sm font-medium text-purple-600 group-hover:gap-2 transition-all">
+          <div className="mt-3 flex items-center gap-1 text-sm font-medium text-purple-600 dark:text-purple-400 group-hover:gap-2 transition-all">
             View plans <ArrowRight className="h-3.5 w-3.5" />
           </div>
         </Link>
 
-        <Link href="/api-pricing" className="group rounded-xl bg-white border border-gray-200 p-6 hover:border-gray-400 hover:shadow-sm transition-all">
-          <BarChart2 className="h-8 w-8 text-blue-600 mb-3" />
-          <h2 className="text-lg font-semibold text-gray-900">API Token Pricing</h2>
-          <p className="mt-1 text-sm text-gray-500">
+        <Link href="/api-pricing" className="group rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 hover:border-gray-400 dark:hover:border-gray-500 hover:shadow-sm transition-all">
+          <BarChart2 className="h-8 w-8 text-blue-600 dark:text-blue-400 mb-3" />
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">API Token Pricing</h2>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             Sort and filter {totalModels} models by input/output cost per 1M tokens. Built-in cost calculator for your usage.
           </p>
-          <div className="mt-3 flex items-center gap-1 text-sm font-medium text-blue-600 group-hover:gap-2 transition-all">
+          <div className="mt-3 flex items-center gap-1 text-sm font-medium text-blue-600 dark:text-blue-400 group-hover:gap-2 transition-all">
             Browse models <ArrowRight className="h-3.5 w-3.5" />
           </div>
         </Link>
 
-        <Link href="/history" className="group rounded-xl bg-white border border-gray-200 p-6 hover:border-gray-400 hover:shadow-sm transition-all">
-          <History className="h-8 w-8 text-green-600 mb-3" />
-          <h2 className="text-lg font-semibold text-gray-900">Price History</h2>
-          <p className="mt-1 text-sm text-gray-500">
+        <Link href="/history" className="group rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 hover:border-gray-400 dark:hover:border-gray-500 hover:shadow-sm transition-all">
+          <History className="h-8 w-8 text-green-600 dark:text-green-400 mb-3" />
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Price History</h2>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             Track how AI pricing has changed over time. {history.length > 0 ? `${history.length} changes logged so far.` : "New changes logged daily."}
           </p>
-          <div className="mt-3 flex items-center gap-1 text-sm font-medium text-green-600 group-hover:gap-2 transition-all">
+          <div className="mt-3 flex items-center gap-1 text-sm font-medium text-green-600 dark:text-green-400 group-hover:gap-2 transition-all">
             View history <ArrowRight className="h-3.5 w-3.5" />
           </div>
         </Link>
@@ -97,28 +97,28 @@ export default function HomePage() {
       {/* Highlights */}
       <div className="grid sm:grid-cols-2 gap-6">
         {cheapestModel && (
-          <div className="rounded-xl bg-green-50 border border-green-200 p-5">
+          <div className="rounded-xl bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 p-5">
             <div className="flex items-center gap-2 mb-2">
-              <TrendingDown className="h-4 w-4 text-green-600" />
-              <span className="text-sm font-semibold text-green-700">Cheapest API Model (Input)</span>
+              <TrendingDown className="h-4 w-4 text-green-600 dark:text-green-400" />
+              <span className="text-sm font-semibold text-green-700 dark:text-green-300">Cheapest API Model (Input)</span>
             </div>
-            <div className="text-xl font-bold text-gray-900">{cheapestModel.name}</div>
-            <div className="text-sm text-gray-600">{cheapestModel.provider}</div>
-            <div className="mt-1 text-2xl font-bold text-green-700">
+            <div className="text-xl font-bold text-gray-900 dark:text-gray-100">{cheapestModel.name}</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">{cheapestModel.provider}</div>
+            <div className="mt-1 text-2xl font-bold text-green-700 dark:text-green-400">
               ${cheapestModel.input_price_per_1m}/1M tokens
             </div>
           </div>
         )}
 
-        <div className="rounded-xl bg-blue-50 border border-blue-200 p-5">
+        <div className="rounded-xl bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 p-5">
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-sm font-semibold text-blue-700">🆓 Free Plans Available</span>
+            <span className="text-sm font-semibold text-blue-700 dark:text-blue-300">🆓 Free Plans Available</span>
           </div>
           <div className="flex flex-wrap gap-2 mt-2">
             {subs.providers
               .filter((p) => p.plans.some((pl) => pl.is_free))
               .map((p) => (
-                <span key={p.slug} className="inline-flex items-center gap-1 rounded-full bg-white border border-blue-200 px-3 py-1 text-sm font-medium text-gray-700">
+                <span key={p.slug} className="inline-flex items-center gap-1 rounded-full bg-white dark:bg-gray-800 border border-blue-200 dark:border-blue-700 px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-300">
                   {p.logo_emoji} {p.provider}
                 </span>
               ))}
@@ -126,7 +126,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <p className="text-center text-xs text-gray-400">
+      <p className="text-center text-xs text-gray-400 dark:text-gray-500">
         Subscription data last updated: {subs.providers[0]?.last_updated ?? "—"} &nbsp;·&nbsp;
         API pricing fetched: {new Date(api.fetched_at).toLocaleDateString()}
       </p>
