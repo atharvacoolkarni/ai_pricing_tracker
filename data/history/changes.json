@@ -388,5 +388,65 @@
     "old_value": 2.5,
     "new_value": 0,
     "change_pct": -100.0
+  },
+  {
+    "date": "2026-03-30",
+    "provider": "Meta",
+    "model_or_plan": "Llama 4 Maverick",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.27,
+    "new_value": 0.31,
+    "change_pct": 14.81
+  },
+  {
+    "date": "2026-03-30",
+    "provider": "Meta",
+    "model_or_plan": "Llama 4 Maverick",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.85,
+    "new_value": 0.91,
+    "change_pct": 7.06
+  },
+  {
+    "date": "2026-03-30",
+    "provider": "Perplexity",
+    "model_or_plan": "Sonar Pro",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 3,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-03-30",
+    "provider": "Perplexity",
+    "model_or_plan": "Sonar Pro",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 15,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-03-30",
+    "provider": "Perplexity",
+    "model_or_plan": "Sonar",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 1,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-03-30",
+    "provider": "Perplexity",
+    "model_or_plan": "Sonar",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 1,
+    "new_value": 0,
+    "change_pct": -100.0
   }
 ]
