@@ -448,5 +448,25 @@
     "old_value": 1,
     "new_value": 0,
     "change_pct": -100.0
+  },
+  {
+    "date": "2026-04-06",
+    "provider": "Alibaba",
+    "model_or_plan": "Qwen3.5 9B (Reasoning)",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.1,
+    "new_value": 0.07,
+    "change_pct": -30.0
+  },
+  {
+    "date": "2026-04-06",
+    "provider": "Alibaba",
+    "model_or_plan": "Qwen3.5 9B (Reasoning)",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.15,
+    "new_value": 0.175,
+    "change_pct": 16.67
   }
 ]
