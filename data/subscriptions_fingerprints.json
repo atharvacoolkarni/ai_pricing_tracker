@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_checked": "2026-04-01T05:28:55.572553+00:00",
+  "last_checked": "2026-04-15T05:29:30.729558+00:00",
   "providers": {
     "chatgpt": {
       "url": "https://openai.com/chatgpt/pricing",
@@ -11,26 +11,26 @@
     "grok": {
       "url": "https://x.ai/",
       "hash": "f72e5a487fccb1e018faadc0ccd1bd8a630835d8bb04fb956ad13fb723edc5a0",
-      "last_checked": "2026-04-01T05:28:55.572553+00:00",
+      "last_checked": "2026-04-15T05:29:30.729558+00:00",
       "last_changed": "2026-03-26T14:45:30.993915+00:00"
     },
     "mistral": {
       "url": "https://mistral.ai/technology/#pricing",
       "hash": "c68361969c95c4c1fca81b3a76a6e1f501d8415caabef63bbcbbc7ade2bb3c94",
-      "last_checked": "2026-04-01T05:28:55.572553+00:00",
+      "last_checked": "2026-04-15T05:29:30.729558+00:00",
       "last_changed": "2026-03-26T14:45:30.993915+00:00"
     },
     "copilot": {
       "url": "https://github.com/features/copilot#pricing",
-      "hash": "9545eef1e00e83ea71f5856e7b7ffddb404185541d7b03e356e7079d6cadbb6c",
-      "last_checked": "2026-04-01T05:28:55.572553+00:00",
-      "last_changed": "2026-03-26T14:45:30.993915+00:00"
+      "hash": "5dd313223007960fe66250cbb78f82e49baa912abfb55255fc8273f1c85e48a8",
+      "last_checked": "2026-04-15T05:29:30.729558+00:00",
+      "last_changed": "2026-04-15T05:29:30.729558+00:00"
     },
     "deepseek": {
       "url": "https://www.deepseek.com/",
-      "hash": "af89b49ad01d56c68a179a7bc6eef05008a2938b956a872f28cffe813ad6ed89",
-      "last_checked": "2026-04-01T05:28:55.572553+00:00",
-      "last_changed": "2026-03-26T14:45:30.993915+00:00"
+      "hash": "f1aa318a9d858ed9c9e22f32881ff9623e88bc05abe646423516f3679b1e3155",
+      "last_checked": "2026-04-15T05:29:30.729558+00:00",
+      "last_changed": "2026-04-15T05:29:30.729558+00:00"
     }
   }
 }
