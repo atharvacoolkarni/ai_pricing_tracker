@@ -568,5 +568,155 @@
     "old_value": 1.5,
     "new_value": 1,
     "change_pct": -33.33
+  },
+  {
+    "date": "2026-04-20",
+    "provider": "OpenAI",
+    "model_or_plan": "gpt-oss-20B (low)",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.06,
+    "new_value": 0.07,
+    "change_pct": 16.67
+  },
+  {
+    "date": "2026-04-20",
+    "provider": "OpenAI",
+    "model_or_plan": "gpt-oss-20B (high)",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.06,
+    "new_value": 0.07,
+    "change_pct": 16.67
+  },
+  {
+    "date": "2026-04-20",
+    "provider": "Meta",
+    "model_or_plan": "Llama 3.3 Instruct 70B",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.58,
+    "new_value": 0.585,
+    "change_pct": 0.86
+  },
+  {
+    "date": "2026-04-20",
+    "provider": "Meta",
+    "model_or_plan": "Llama 3.2 Instruct 11B (Vision)",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.16,
+    "new_value": 0.245,
+    "change_pct": 53.12
+  },
+  {
+    "date": "2026-04-20",
+    "provider": "Meta",
+    "model_or_plan": "Llama 3.2 Instruct 11B (Vision)",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.16,
+    "new_value": 0.245,
+    "change_pct": 53.12
+  },
+  {
+    "date": "2026-04-20",
+    "provider": "DeepSeek",
+    "model_or_plan": "DeepSeek R1 0528 (May '25)",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 5.4,
+    "new_value": 4.2,
+    "change_pct": -22.22
+  },
+  {
+    "date": "2026-04-20",
+    "provider": "Mistral",
+    "model_or_plan": "Mixtral 8x7B Instruct",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.54,
+    "new_value": 0.495,
+    "change_pct": -8.33
+  },
+  {
+    "date": "2026-04-20",
+    "provider": "Mistral",
+    "model_or_plan": "Mixtral 8x7B Instruct",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.6,
+    "new_value": 0.62,
+    "change_pct": 3.33
+  },
+  {
+    "date": "2026-04-20",
+    "provider": "DeepSeek",
+    "model_or_plan": "DeepSeek R1 (Jan '25)",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 4,
+    "new_value": 3.5,
+    "change_pct": -12.5
+  },
+  {
+    "date": "2026-04-20",
+    "provider": "DeepSeek",
+    "model_or_plan": "DeepSeek V3 0324",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 1.45,
+    "new_value": 1.25,
+    "change_pct": -13.79
+  },
+  {
+    "date": "2026-04-20",
+    "provider": "Kimi",
+    "model_or_plan": "Kimi K2",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.57,
+    "new_value": 0.585,
+    "change_pct": 2.63
+  },
+  {
+    "date": "2026-04-20",
+    "provider": "Kimi",
+    "model_or_plan": "Kimi K2 0905",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.8,
+    "new_value": 0.6,
+    "change_pct": -25.0
+  },
+  {
+    "date": "2026-04-20",
+    "provider": "Kimi",
+    "model_or_plan": "Kimi K2 0905",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 2.25,
+    "new_value": 2.5,
+    "change_pct": 11.11
+  },
+  {
+    "date": "2026-04-20",
+    "provider": "Z AI",
+    "model_or_plan": "GLM-4.7 (Non-reasoning)",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.55,
+    "new_value": 0.6,
+    "change_pct": 9.09
+  },
+  {
+    "date": "2026-04-20",
+    "provider": "Z AI",
+    "model_or_plan": "GLM-4.7 (Non-reasoning)",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 2.15,
+    "new_value": 2.2,
+    "change_pct": 2.33
   }
 ]
