@@ -718,5 +718,335 @@
     "old_value": 2.15,
     "new_value": 2.2,
     "change_pct": 2.33
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "OpenAI",
+    "model_or_plan": "gpt-oss-20B (low)",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.2,
+    "new_value": 0.225,
+    "change_pct": 12.5
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Meta",
+    "model_or_plan": "Llama 3.2 Instruct 90B (Vision)",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.72,
+    "new_value": 1.38,
+    "change_pct": 91.67
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Meta",
+    "model_or_plan": "Llama 3.2 Instruct 90B (Vision)",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.72,
+    "new_value": 1.38,
+    "change_pct": 91.67
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "NVIDIA",
+    "model_or_plan": "NVIDIA Nemotron 3 Nano 30B A3B (Non-reasoning)",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.05,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "NVIDIA",
+    "model_or_plan": "NVIDIA Nemotron 3 Nano 30B A3B (Non-reasoning)",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.2,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "NVIDIA",
+    "model_or_plan": "NVIDIA Nemotron 3 Nano 30B A3B (Reasoning)",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.06,
+    "new_value": 0.055,
+    "change_pct": -8.33
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "NVIDIA",
+    "model_or_plan": "NVIDIA Nemotron 3 Nano 30B A3B (Reasoning)",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.24,
+    "new_value": 0.22,
+    "change_pct": -8.33
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Xiaomi",
+    "model_or_plan": "MiMo-V2-Pro",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 1,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Xiaomi",
+    "model_or_plan": "MiMo-V2-Pro",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 3,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Alibaba",
+    "model_or_plan": "Qwen3.5 9B (Non-reasoning)",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.04,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Alibaba",
+    "model_or_plan": "Qwen3.5 9B (Non-reasoning)",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.2,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Alibaba",
+    "model_or_plan": "Qwen3.5 9B (Reasoning)",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.07,
+    "new_value": 0.1,
+    "change_pct": 42.86
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Alibaba",
+    "model_or_plan": "Qwen3.5 9B (Reasoning)",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.175,
+    "new_value": 0.15,
+    "change_pct": -14.29
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Meta",
+    "model_or_plan": "Llama 3.2 Instruct 3B",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.085,
+    "new_value": 0.15,
+    "change_pct": 76.47
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Meta",
+    "model_or_plan": "Llama 3.2 Instruct 3B",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.085,
+    "new_value": 0.15,
+    "change_pct": 76.47
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Meta",
+    "model_or_plan": "Llama 3 Instruct 70B",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.58,
+    "new_value": 0.65,
+    "change_pct": 12.07
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Meta",
+    "model_or_plan": "Llama 3 Instruct 70B",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 1.745,
+    "new_value": 2.75,
+    "change_pct": 57.59
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Mistral",
+    "model_or_plan": "Mixtral 8x7B Instruct",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.495,
+    "new_value": 0.45,
+    "change_pct": -9.09
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Mistral",
+    "model_or_plan": "Mixtral 8x7B Instruct",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.62,
+    "new_value": 0.7,
+    "change_pct": 12.9
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Mistral",
+    "model_or_plan": "Devstral Small (May '25)",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.06,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Mistral",
+    "model_or_plan": "Devstral Small (May '25)",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.12,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "DeepSeek",
+    "model_or_plan": "DeepSeek R1 Distill Qwen 32B",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.27,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "DeepSeek",
+    "model_or_plan": "DeepSeek R1 Distill Qwen 32B",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.27,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "DeepSeek",
+    "model_or_plan": "DeepSeek V3 0324",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 1.25,
+    "new_value": 1.195,
+    "change_pct": -4.4
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "DeepSeek",
+    "model_or_plan": "DeepSeek R1 (Jan '25)",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 1.35,
+    "new_value": 1.675,
+    "change_pct": 24.07
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "DeepSeek",
+    "model_or_plan": "DeepSeek R1 (Jan '25)",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 3.5,
+    "new_value": 4.7,
+    "change_pct": 34.29
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Z AI",
+    "model_or_plan": "GLM-4.6 (Reasoning)",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.575,
+    "new_value": 0.55,
+    "change_pct": -4.35
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Z AI",
+    "model_or_plan": "GLM-4.5-Air",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.2,
+    "new_value": 0.17,
+    "change_pct": -15.0
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Z AI",
+    "model_or_plan": "GLM-4.5-Air",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 1.1,
+    "new_value": 0.98,
+    "change_pct": -10.91
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Z AI",
+    "model_or_plan": "GLM-4.5 (Reasoning)",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.49,
+    "new_value": 0.6,
+    "change_pct": 22.45
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Z AI",
+    "model_or_plan": "GLM-4.5 (Reasoning)",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 1.9,
+    "new_value": 2.2,
+    "change_pct": 15.79
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Alibaba",
+    "model_or_plan": "QwQ 32B-Preview",
+    "type": "api",
+    "field": "input_price_per_1m",
+    "old_value": 0.12,
+    "new_value": 0,
+    "change_pct": -100.0
+  },
+  {
+    "date": "2026-04-27",
+    "provider": "Alibaba",
+    "model_or_plan": "QwQ 32B-Preview",
+    "type": "api",
+    "field": "output_price_per_1m",
+    "old_value": 0.18,
+    "new_value": 0,
+    "change_pct": -100.0
   }
 ]
